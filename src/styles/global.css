@@ -36,6 +36,11 @@ main {
   padding: 2rem 1.5rem;
 }
 
+main.wide {
+  display: block;
+  padding: 3rem 1.5rem;
+}
+
 .card {
   max-width: 36rem;
   width: 100%;
@@ -128,4 +133,82 @@ footer a {
 footer a:hover,
 footer a:focus {
   color: var(--fg);
+}
+
+/* Video index */
+
+.page-head {
+  max-width: 48rem;
+  margin: 0 auto 2.5rem;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.video-grid {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1.5rem;
+}
+
+.video-card {
+  display: block;
+  text-decoration: none;
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.video-card:hover,
+.video-card:focus {
+  border-color: var(--teal);
+  color: var(--fg);
+}
+
+.video-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--border);
+}
+
+.video-card .video-card-title {
+  display: block;
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+}
+
+/* Video page */
+
+.video-embed {
+  max-width: 24rem;
+  margin: 0 auto 2rem;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.video-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.official-links {
+  margin-top: 2rem;
+}
+
+.official-links h2 {
+  font-size: 1.15rem;
+  color: var(--teal);
+}
+
+.official-links ul {
+  padding-left: 1.25rem;
 }
