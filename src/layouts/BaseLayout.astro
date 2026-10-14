@@ -1,0 +1,25 @@
+---
+import '../styles/global.css';
+import { GOATCOUNTER_ENDPOINT } from '../config/analytics';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <script data-goatcounter={GOATCOUNTER_ENDPOINT} async src="//gc.zgo.at/count.js"></script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

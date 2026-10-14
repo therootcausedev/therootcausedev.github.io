@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const videos = (await getCollection('videos')).sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+);
+---
+
+<BaseLayout
+  title="Videos — The Root Cause"
+  description="Short videos about how software systems really work and break: latency, incidents, root causes."
+>
+  <main class="wide">
+    <div class="page-head">
+      <p class="prompt">&gt; ls videos/</p>
+      <h1>Videos</h1>
+      <p class="lede">Short explainers on how software systems really work and break.</p>
+    </div>
+    <div class="video-grid">
+      {
+        videos.map((video) => (
+          <a class="video-card" href={`/v/${video.id}/`}>
+            <img
+              src={`https://i.ytimg.com/vi/${video.data.videoId}/hqdefault.jpg`}
+              alt={video.data.title}
+              loading="lazy"
+              width="480"
+              height="360"
+            />
+            <span class="video-card-title">{video.data.title}</span>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+  <footer>
+    <a href="/">The Root Cause</a> &middot; <a href="/privacy/">Privacy Policy</a>
+  </footer>
+</BaseLayout>

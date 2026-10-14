@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Root Cause</title>
-  <meta name="description" content="Short videos about how software systems really work and break: latency, incidents, root causes.">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="The Root Cause"
+  description="Short videos about how software systems really work and break: latency, incidents, root causes."
+>
   <main>
     <div class="card">
       <p class="prompt">&gt; the_root_cause</p>
@@ -19,5 +17,4 @@
   <footer>
     <a href="/privacy/">Privacy Policy</a>
   </footer>
-</body>
-</html>
+</BaseLayout>

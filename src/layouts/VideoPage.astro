@@ -1,0 +1,56 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  video: CollectionEntry<'videos'>;
+}
+
+const { video } = Astro.props;
+const { title, videoId, officialLinks } = video.data;
+
+function slugifyLabel(label: string) {
+  return label
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+---
+
+<BaseLayout title={`${title} — The Root Cause`} description={title}>
+  <main class="wide">
+    <article>
+      <h1>{title}</h1>
+      <div class="video-embed">
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          loading="lazy"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <slot />
+      {
+        officialLinks.length > 0 && (
+          <div class="official-links">
+            <h2>Official links</h2>
+            <ul>
+              {officialLinks.map((link) => (
+                <li>
+                  <a href={link.url} data-goatcounter-click={slugifyLabel(link.label)} rel="noopener">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+      <p><a href="/v/">&larr; All videos</a></p>
+    </article>
+  </main>
+  <footer>
+    <a href="/">The Root Cause</a> &middot; <a href="/privacy/">Privacy Policy</a>
+  </footer>
+</BaseLayout>
