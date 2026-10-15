@@ -1,10 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TerminalFrame from '../../components/TerminalFrame.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
 ---
 
 <BaseLayout title="Privacy Policy | The Root Cause" description="Privacy policy for The Root Cause uploader.">
-  <main>
-    <article>
+  <main class="wide">
+    <TerminalFrame path="the-root-cause | privacy">
+      <p class="line">
+        <span class="prompt-user">the-root-cause</span><span class="prompt-sep">:~$ </span>
+        <span class="cmd">cat privacy.md</span>
+      </p>
       <h1>Privacy Policy</h1>
       <p class="meta">Effective date: October 14, 2026</p>
 
@@ -25,10 +31,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <h2>Contact</h2>
       <p>Questions about this policy can be sent to <a href="mailto:therootcausehq@gmail.com">therootcausehq@gmail.com</a>.</p>
 
-      <p><a href="/">&larr; Back to The Root Cause</a></p>
-    </article>
+      <p class="line back">
+        <span class="prompt-user">the-root-cause</span><span class="prompt-sep">:~$ </span>
+        <a class="cmd-link" href="/">cd ..</a>
+      </p>
+    </TerminalFrame>
   </main>
-  <footer>
-    <a href="/">The Root Cause</a>
-  </footer>
+  <SiteFooter showPrivacyLink={false} />
 </BaseLayout>

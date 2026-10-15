@@ -1,10 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TerminalFrame from '../../components/TerminalFrame.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { slugify } from '../../lib/slug';
 
 const videos = (await getCollection('videos')).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
 );
+
+const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });
 ---
 
 <BaseLayout
@@ -12,29 +17,44 @@ const videos = (await getCollection('videos')).sort(
   description="Short videos about how software systems really work and break: latency, incidents, root causes."
 >
   <main class="wide">
-    <div class="page-head">
-      <p class="prompt">&gt; ls videos/</p>
-      <h1>Videos</h1>
-      <p class="lede">Short explainers on how software systems really work and break.</p>
-    </div>
-    <div class="video-grid">
-      {
-        videos.map((video) => (
-          <a class="video-card" href={`/v/${video.id}/`}>
-            <img
-              src={`https://i.ytimg.com/vi/${video.data.videoId}/hqdefault.jpg`}
-              alt={video.data.title}
-              loading="lazy"
-              width="480"
-              height="360"
-            />
-            <span class="video-card-title">{video.data.title}</span>
-          </a>
-        ))
-      }
-    </div>
+    <TerminalFrame path="the-root-cause | videos" wide>
+      <p class="line">
+        <span class="prompt-user">the-root-cause</span><span class="prompt-sep">:~$ </span>
+        <span class="cmd">ls -la videos/</span>
+      </p>
+      <table>
+        <caption>total {videos.length}</caption>
+        <thead>
+          <tr>
+            <th>perm</th>
+            <th>date</th>
+            <th>name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            videos.map((video) => (
+              <tr>
+                <td class="perm">-rw-r--r--</td>
+                <td class="date">{dateFormatter.format(video.data.publishedAt)}</td>
+                <td class="name">
+                  <a href={`/v/${video.id}/`}>
+                    {slugify(video.data.title)}<span class="ext">.mp4</span>
+                  </a>
+                </td>
+                <td>
+                  <div class="swatch">▶</div>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p class="line last">
+        <span class="prompt-user">the-root-cause</span><span class="prompt-sep">:~$ </span> <span class="cursor">▌</span>
+      </p>
+    </TerminalFrame>
   </main>
-  <footer>
-    <a href="/">The Root Cause</a> &middot; <a href="/privacy/">Privacy Policy</a>
-  </footer>
+  <SiteFooter wide />
 </BaseLayout>

@@ -1,0 +1,77 @@
+---
+interface Props {
+  path: string;
+  wide?: boolean;
+}
+
+const { path, wide = false } = Astro.props;
+---
+
+<div class:list={['frame', { wide }]}>
+  <div class="titlebar">
+    <div class="dots"><span></span><span></span><span></span></div>
+    <span class="path">{path}</span>
+  </div>
+  <div class="body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .frame {
+    max-width: 44rem;
+    margin: 2.5rem auto;
+    width: calc(100% - 2rem);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--panel);
+  }
+
+  .frame.wide {
+    max-width: 52rem;
+  }
+
+  .titlebar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--dim);
+    font-size: 0.8rem;
+  }
+
+  .dots {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--rule);
+  }
+
+  .path {
+    margin-left: 0.3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .body {
+    padding: 1.5rem 1.75rem 2.25rem;
+  }
+
+  @media (max-width: 480px) {
+    .frame {
+      margin: 1.5rem auto;
+    }
+
+    .body {
+      padding: 1.1rem 1rem 1.75rem;
+    }
+  }
+</style>
