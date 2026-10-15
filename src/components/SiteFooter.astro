@@ -1,0 +1,48 @@
+---
+interface Props {
+  wide?: boolean;
+  showPrivacyLink?: boolean;
+}
+
+const { wide = false, showPrivacyLink = true } = Astro.props;
+---
+
+<footer class:list={[{ wide }]}>
+  <a href="/">the-root-cause</a>{showPrivacyLink && (<> &middot; <a href="/privacy/">privacy</a></>)}
+</footer>
+
+<style>
+  footer {
+    text-align: left;
+    max-width: 44rem;
+    margin: 0 auto 2.5rem;
+    width: calc(100% - 2rem);
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.8rem;
+    color: var(--dim);
+    font-family: var(--mono);
+  }
+
+  footer.wide {
+    max-width: 52rem;
+  }
+
+  footer a {
+    color: var(--dim);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--dim);
+  }
+
+  footer a:hover,
+  footer a:focus-visible {
+    color: var(--green);
+    border-bottom-color: var(--green);
+  }
+
+  @media (max-width: 480px) {
+    footer {
+      margin: 0 auto 1.5rem;
+    }
+  }
+</style>

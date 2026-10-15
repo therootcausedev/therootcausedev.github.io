@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TerminalFrame from '../components/TerminalFrame.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 ---
 
 <BaseLayout
@@ -7,14 +9,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="Short videos about how software systems really work and break: latency, incidents, root causes."
 >
   <main>
-    <div class="card">
-      <p class="prompt">&gt; the_root_cause</p>
+    <TerminalFrame path="the-root-cause">
+      <p class="line">
+        <span class="prompt-user">the-root-cause</span><span class="prompt-sep">:~$ </span>
+        <span class="cmd">cat about.md</span>
+      </p>
       <h1>The Root Cause</h1>
-      <p class="lede">Short videos about how software systems really work and break: latency, incidents, root causes.</p>
-      <a class="btn" href="https://www.youtube.com/@therootcausedev">Watch on YouTube</a>
-    </div>
+      <p>Short videos about how software systems really work and break: latency, incidents, root causes.</p>
+      <p class="line">
+        <span class="prompt-user">the-root-cause</span><span class="prompt-sep">:~$ </span>
+        <a class="cmd-link" href="https://www.youtube.com/@therootcausedev">open https://www.youtube.com/@therootcausedev</a>
+      </p>
+      <p class="line last">
+        <span class="prompt-user">the-root-cause</span><span class="prompt-sep">:~$ </span> <span class="cursor">▌</span>
+      </p>
+    </TerminalFrame>
   </main>
-  <footer>
-    <a href="/privacy/">Privacy Policy</a>
-  </footer>
+  <SiteFooter />
 </BaseLayout>

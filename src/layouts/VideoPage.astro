@@ -1,5 +1,8 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import TerminalFrame from '../components/TerminalFrame.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { slugify } from '../lib/slug';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -8,18 +11,16 @@ interface Props {
 
 const { video } = Astro.props;
 const { title, videoId, officialLinks } = video.data;
-
-function slugifyLabel(label: string) {
-  return label
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
+const fileSlug = slugify(title);
 ---
 
 <BaseLayout title={`${title} | The Root Cause`} description={title}>
   <main class="wide">
-    <article>
+    <TerminalFrame path={`the-root-cause | videos/${fileSlug}`}>
+      <p class="line">
+        <span class="prompt-user">the-root-cause</span><span class="prompt-sep">:~$ </span>
+        <span class="cmd">cat videos/{fileSlug}.md</span>
+      </p>
       <h1>{title}</h1>
       <div class="video-embed">
         <iframe
@@ -38,7 +39,7 @@ function slugifyLabel(label: string) {
             <ul>
               {officialLinks.map((link) => (
                 <li>
-                  <a href={link.url} data-goatcounter-click={slugifyLabel(link.label)} rel="noopener">
+                  <a href={link.url} data-goatcounter-click={slugify(link.label)} rel="noopener">
                     {link.label}
                   </a>
                 </li>
@@ -47,10 +48,11 @@ function slugifyLabel(label: string) {
           </div>
         )
       }
-      <p><a href="/v/">&larr; All videos</a></p>
-    </article>
+      <p class="line back">
+        <span class="prompt-user">the-root-cause</span><span class="prompt-sep">:~$ </span>
+        <a class="cmd-link" href="/v/">cd ..</a>
+      </p>
+    </TerminalFrame>
   </main>
-  <footer>
-    <a href="/">The Root Cause</a> &middot; <a href="/privacy/">Privacy Policy</a>
-  </footer>
+  <SiteFooter />
 </BaseLayout>
