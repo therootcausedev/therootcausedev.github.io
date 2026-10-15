@@ -17,3 +17,7 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# Oil UI skill trial (TASK-238): vendored copy + working artifacts, worktree-local only
+.oil-ui/
+.oil-trial/
